@@ -63,7 +63,7 @@ case $action in
         gst-launch-1.0 v4l2src device=$selected_device ! 'image/jpeg, width=1920, height=1080, framerate=30/1' ! jpegdec ! identity silent=false ! autovideosink
         ;;
     2)
-        gst-launch-1.0 v4l2src device=$selected_device ! 'image/jpeg, width=1920, height=1080, framerate=30/1' ! jpegdec ! x264enc ! mp4mux ! filesink location=output.mp4
+                ffmpeg -f v4l2 -input_format mjpeg -video_size 1920x1080 -i $selected_device -c:v copy output.mp4
         ;;
     3)
         gst-launch-1.0 v4l2src device=$selected_device ! 'image/jpeg, width=1920, height=1080, framerate=30/1' ! jpegdec ! tee name=t ! queue ! identity silent=false ! autovideosink t. ! queue ! x264enc ! mp4mux ! filesink location=output.mp4
@@ -72,4 +72,3 @@ case $action in
         echo "Invalid choice."
         ;;
 esac
-
