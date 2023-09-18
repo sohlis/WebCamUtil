@@ -60,7 +60,8 @@ kill_using_device $selected_device
 # Launch appropriate GStreamer pipeline based on user action
 case $action in
     1)
-        gst-launch-1.0 v4l2src device=$selected_device ! 'image/jpeg, width=1920, height=1080, framerate=30/1' ! jpegdec ! identity silent=false ! autovideosink
+    	ffplay -f v4l2 -video_size 1080x1920 -input_format mjpeg -i $selected_device
+
         ;;
     2)
                 ffmpeg -f v4l2 -input_format mjpeg -video_size 1920x1080 -i $selected_device -c:v copy output.mp4

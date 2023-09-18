@@ -1,0 +1,10 @@
+`v4l2-ctl -d /dev/video2 --list-formats-ext`
+show camera formats
+
+
+`v4l2-ctl -d /dev/video3 -D`
+show driver information (can we expose firmware version here?)
+
+
+` ffplay -f v4l2 -i /dev/video3`
+update play
