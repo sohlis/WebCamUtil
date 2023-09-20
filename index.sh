@@ -53,6 +53,7 @@ select_action() {
     echo "3. Both"
     echo "4. Show camera formats"
     echo "5. Show driver information"
+    echo "6. *Labs* MJPEG stream with fps info"
 
     read -p "Enter your choice: " action
 }
@@ -85,6 +86,9 @@ case $action in
         ;;
     5)
         v4l2-ctl -d $selected_device -D
+        ;;
+    6)
+        gst-launch-1.0 v4l2src device=$selected_device ! "image/jpeg,width=1920,height=1080,framerate=30/1" ! jpegparse ! jpegdec ! autovideoconvert ! fpsdisplaysink sync=false
         ;;
     *)
         echo "Invalid choice."
